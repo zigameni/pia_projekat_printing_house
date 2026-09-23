@@ -136,8 +136,13 @@ tog štampara + `vrstaKlijenta` i `mozePromenitiStatus`, koje računa server) i 
 
 ## In Progress
 
-- Nothing actively being coded. **All 20 mandatory items are complete.** There is still **no git repository**
-  (lost in the move), so "uncommitted" is moot — nothing is tracked at all.
+- Nothing actively being coded. **All 20 mandatory items are complete.**
+- **Git is back (2026-09-23 12:0x):** a fresh repository was initialised in the project root and **pushed** to
+  `git@github.com:zigameni/pia_projekat_printing_house.git` — branch **`main`**, one initial commit
+  **`a7eb2ad`** with **144 tracked files** (backend source + Roboto fonts, Angular frontend, `docs/`, all root
+  `.md` docs). `node_modules/`, `dist/`, `backend/uploads/`, `.env`, `.angular/` and `.freebuff/` stay ignored.
+  The **old phase history is gone for good** (those commits — `fa40c5b` … `1a37d51` — cannot be reconstructed),
+  so `a7eb2ad` is a single import of the current state, not a replay of Faze 0–8.
 
 ## Pending
 
@@ -155,7 +160,8 @@ tog štampara + `vrstaKlijenta` i `mozePromenitiStatus`, koje računa server) i 
 ## Important Decisions
 
 - Phases are worked sequentially; **a git commit is made after every completed and verified phase**.
-  *(Currently impossible — the `.git` directory did not survive the PC move. See the path-drift section.)*
+  *(Temporarily impossible after the PC move — **restored 2026-09-23**: repo re-created and pushed, branch `main`.
+  The earlier per-phase commits are lost; from `a7eb2ad` onwards the rule applies again.)*
 - The exam-style single-controller/single-router template was deliberately abandoned in favour of domain-based structure (documented in `implementation_log.md`).
 - Mandatory (black) items from `minimalni zahtevi.txt` are done first; red „-" items are postponed until the end.
 - Backend-first workflow: models → controller → router → compile; compile both projects often.
@@ -1686,3 +1692,55 @@ da je N-3 rešen i da PDF ne prolazi samo u delu „snimanja za preuzimanje".
 
 **Dirana su samo četiri `.md` fajla:** `minimalni_zahtevi.md`, `STATUS_ZAHTEVA.md`, `PLAN_FAZE_7.md` i ovaj
 dnevnik — **kod, baza, `dist` i fajlovi na disku nisu dirani**, ništa nije rebuild-ovano ni restartovano.
+
+---
+
+## 2026-09-23 11:44 — Git repozitorijum ponovo uspostavljen i push-ovan na GitHub
+
+### KORISNIK
+
+> Thank you can you create a git repo and, push it to
+> git@github.com:zigameni/pia_projekat_printing_house.git
+
+### ASISTENT
+
+Urađeno. Repo je napravljen u korenu projekta i **push-ovan** na zadati SSH URL.
+
+```
+git init -b main                                    → nov repo (stari .git nije postojao)
+git remote add origin git@github.com:zigameni/pia_projekat_printing_house.git
+git add -A && git commit                            → a7eb2ad, 144 fajla
+git push -u origin main                             → [new branch] main -> main
+```
+
+**Provere pre commit-a:**
+- `git ls-remote origin` → **prazan** izlaz: repo na GitHub-u nije imao ni jedan commit, pa nije bilo potrebe ni za
+  `--force` ni za merge (nijedan tuđi commit nije pregažen);
+- `ssh -o BatchMode=yes -T git@github.com` → `Hi zigameni!` — SSH ključ (`~/.ssh/id_rsa`) radi i pripada istom
+  nalogu kao repo;
+- `git config core.autocrlf` → `true` (Git for Windows normalizuje CRLF→LF u repou; otuda `warning: LF will be
+  replaced by CRLF` za 120+ fajlova — to je normalno, ne greška);
+- **bezbednosna provera:** nema `.env`, `*.pem`, `*.key` nigde u projektu; `git add -A --dry-run` potvrđeno **ne**
+  sadrži `node_modules`, `dist`, `backend/uploads`, `.freebuff` ni `.env`.
+
+**Sadržaj commita `a7eb2ad` (144 fajla):** backend (`src/` + `package*.json` + `tsconfig` +
+`assets/fonts/Roboto-*.ttf` sa licencom — **fontovi su obavezni u runtime-u**), frontend (Angular `src/`, `angular.json`),
+`docs/` (specifikacije + 2 PDF-a, ukupno 457 kB), svi `.md` dokumenti iz korena, `primer-proizvodi.json`.
+Autor: `Ziga <shehu.meni@gmail.com>` (postojeći globalni `user.name`/`user.email` — **nisu menjani**).
+
+**Verifikacija posle push-a:**
+```
+git ls-remote origin  → a7eb2ad… refs/heads/main   (isti hash kao lokalno)
+git status -sb        → ## main...origin/main     (radni direktorijum čist, ništa neostavljeno)
+git ls-tree -r HEAD   → 144 fajla
+```
+
+**Šta nije urađeno i zašto:** istorija po fazama (`fa40c5b`, `06f68e7`, `b0c5801`, `b8326dc`, `301cc12`, `1a37d51`)
+**ne može se rekonstruisati** — ti objekti više ne postoje na disku, pa je napravljen **jedan uvodni commit** sa celim
+stanjem projekta. „Veštačko" rekonstruisanje starih commita po fazama odbačeno je kao pogrešno (lažna istorija).
+
+**Ostaje da se zna:**
+- `backend/uploads/` je u `.gitignore` — slike dodate kroz aplikaciju (i probni `_pdfcheck.pdf`) **nisu u repou**,
+  pa ih na kloniranoj mašini treba ponovo dodati (ili tu liniju izbaciti iz `.gitignore` pre odbrane);
+- `.env` nije u repou (ni ne postoji) — SMTP za pravu dostavu se zadaje promenljivama okruženja pri pokretanju;
+- od sada važi pravilo iz `AGENTS.md`: **commit posle svake završene i proverene faze**, sada kada repo postoji.
