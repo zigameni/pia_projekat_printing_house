@@ -1,0 +1,46 @@
+<div class="card">
+    <h2>📦 Arhiva narudžbina</h2>
+
+    @if (poruka) {
+        <p class="poruka poruka-uspeh">{{ poruka }}</p>
+    }
+
+    <div class="tabela-okvir">
+        <table>
+            <thead>
+                <tr>
+                    <th>Faktura</th>
+                    <th>Proizvod</th>
+                    <th class="desno">Količina</th>
+                    <th>Štamparija</th>
+                    <th>Datum</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (s of stavke; track s.idFakture + s.sifra) {
+                    <tr>
+                        <td>{{ s.idFakture }}</td>
+                        <td>{{ s.nazivProizvoda }}</td>
+                        <td class="desno">{{ s.kolicina }}</td>
+                        <td>{{ s.nazivStamparije }} ({{ s.grad }})</td>
+                        <td>{{ formatirajDatum(s.datumIzdavanja) }}</td>
+                        <td>
+                            <span class="status-badge status-{{ s.status }}">{{ s.status }}</span>
+                        </td>
+                        <td>
+                            @if (s.status === 'isporuceno') {
+                                <button class="btn btn-mali" (click)="promeniStatus(s.idFakture)">Označi kao primljeno</button>
+                            }
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="7">Nema arhiviranih narudžbina.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

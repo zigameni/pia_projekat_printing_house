@@ -1,0 +1,158 @@
+@if (poruka) {
+    <div class="card">
+        <p class="poruka poruka-greska">{{ poruka }}</p>
+        <a routerLink="/">← Nazad na pretragu</a>
+    </div>
+}
+
+@if (proizvod) {
+    <div class="card">
+        <div class="detalji-glavno">
+            <div class="detalji-slika">
+                @if (slikaPutanja(proizvod.slikaUrl)) {
+                    <img class="slika-glavna" [src]="slikaPutanja(proizvod.slikaUrl)" [alt]="proizvod.naziv" />
+                } @else {
+                    <div class="bez-slike">🖨️<span>{{ proizvod.naziv }}</span></div>
+                }
+            </div>
+            <div class="detalji-info">
+                <h2>{{ proizvod.naziv }}</h2>
+                <p><strong>Štamparija:</strong> {{ proizvod.nazivStamparije }} ({{ proizvod.grad }})</p>
+                <p>
+                    <span class="lajk">👍 {{ proizvod.brojSvidjanja }}</span>
+                    <span class="dislajk">👎 {{ proizvod.brojNesvidjanja }}</span>
+                </p>
+                <p><strong>Kategorija:</strong> {{ proizvod.kategorija }} / {{ proizvod.potkategorija }}</p>
+                <p><strong>Cena po komadu:</strong> {{ proizvod.jedinicnaCena }} RSD</p>
+                <p><strong>Na stanju:</strong> {{ proizvod.kolicinaNaLageru }} kom.</p>
+
+                @if (jeKlijent && proizvod.dostupneBoje.length > 0) {
+                    <div class="mt-2">
+                        <label><strong>Boja:</strong></label>
+                        <select [(ngModel)]="izabranaBoja">
+                            @for (b of proizvod.dostupneBoje; track b) {
+                                <option [value]="b">{{ b }}</option>
+                            }
+                        </select>
+                    </div>
+                }
+
+                @if (jeKlijent) {
+                    <div class="mt-2">
+                        <label><strong>Količina:</strong></label>
+                        <input type="number" [(ngModel)]="kolicina" min="1" [max]="proizvod.kolicinaNaLageru" style="width: 80px;" />
+                    </div>
+                    <div class="mt-2 tekst-stampe">
+                        <label><strong>Tekst za štampu:</strong></label>
+                        <textarea [(ngModel)]="tekstZaStampu" rows="3" maxlength="500"
+                            placeholder="Tekst koji treba odštampati (npr. naziv firme, slogan)..."></textarea>
+                        <small>{{ tekstZaStampu.length }}/500 karaktera</small>
+                    </div>
+                    <div class="mt-2">
+                        <button class="btn" (click)="dodajUKorpu()">🛒 DODAJ U KORPU</button>
+                    </div>
+                    @if (porukaDodavanja) {
+                        <p class="mt-1" [class.poruka-greska]="!uspesnoDodavanje" [class.poruka-uspeh]="uspesnoDodavanje">
+                            {{ porukaDodavanja }}
+                        </p>
+                    }
+                }
+            </div>
+        </div>
+
+        <p class="mt-2">{{ proizvod.opis }}</p>                @if (proizvod.uslugeStampe.length > 0) {
+            <h3 class="mt-2">Usluge štampe</h3>
+            <table>
+                <thead>
+                    <tr>
+                        @if (jeKlijent) { <th></th> }
+                        <th>Tip štampe</th>
+                        <th class="desno">Dodatna cena po komadu</th>
+                        <th class="desno">Maks. dimenzije (mm)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (u of proizvod.uslugeStampe; track u.idUsluge) {
+                        <tr [class.izabrana]="jeKlijent && izabranaUsluga && izabranaUsluga.idUsluge === u.idUsluge">
+                            @if (jeKlijent) {
+                                <td>
+                                    <input type="radio" name="usluga" [value]="u.idUsluge"
+                                        (click)="izaberiUslugu(u)"
+                                        [checked]="izabranaUsluga && izabranaUsluga.idUsluge === u.idUsluge" />
+                                </td>
+                            }
+                            <td>{{ u.tipStampe }}</td>
+                            <td class="desno">{{ u.dodatnaCenaPoKomadu }} RSD</td>
+                            <td class="desno">{{ u.maxSirinaMm }} x {{ u.maxVisinaMm }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (jeKlijent && izabranaUsluga) {
+                <p class="mt-1"><strong>Ukupna cena po komadu:</strong> {{ ukupnaCena() }} RSD</p>
+            }
+        }
+
+        @if (jeKlijent && proizvod.stamparijaInfo) {
+            <div class="card mt-2">
+                <h3>Informacije o štampariji</h3>
+                <p><strong>{{ proizvod.stamparijaInfo.nazivInstitucije }}</strong></p>
+                @if (proizvod.stamparijaInfo.adresa) {
+                    <p><strong>Adresa:</strong> {{ proizvod.stamparijaInfo.adresa }}, {{ proizvod.stamparijaInfo.grad }}</p>
+                } @else {
+                    <p><strong>Grad:</strong> {{ proizvod.stamparijaInfo.grad }}</p>
+                }
+                <p><strong>Telefon:</strong> {{ proizvod.stamparijaInfo.telefon }}</p>
+                <p><strong>E-mail:</strong> {{ proizvod.stamparijaInfo.email }}</p>
+            </div>
+        }
+
+        @if (jeKlijent && proizvod.komentari && proizvod.komentari.length > 0) {
+            <div class="mt-2">
+                <h3>Komentari</h3>
+                @for (k of proizvod.komentari; track $index) {
+                    <div class="komentar" [class.komentar-moj]="jeMojKomentar(k.korisnickoIme)">
+                        <strong>{{ k.korisnickoIme }}</strong>
+                        <span class="komentar-datum">{{ formatirajDatum(k.datum) }}</span>
+                        <span class="komentar-ocena">{{ k.ocena === 'svidja' ? '👍' : '👎' }}</span>
+                        @if (k.tekst) {
+                            <p>{{ k.tekst }}</p>
+                        }
+                    </div>
+                }
+            </div>
+        }
+
+        @if (jeKlijent) {
+            <div class="card mt-2">
+                <h3>Dodaj komentar</h3>
+                <div class="komentar-forma">
+                    <div>
+                        <label>Ocena:</label>
+                        <label class="radio-label">
+                            <input type="radio" name="ocena" value="svidja" [(ngModel)]="novaOcena" /> 👍 Sviđa mi se
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ocena" value="ne_svidja" [(ngModel)]="novaOcena" /> 👎 Ne sviđa mi se
+                        </label>
+                    </div>
+                    <div class="mt-1">
+                        <textarea [(ngModel)]="noviKomentarTekst" placeholder="Vaš komentar (opciono)..." rows="3" style="width: 100%;"></textarea>
+                    </div>
+                    <div class="mt-1">
+                        <button class="btn" (click)="posaljiKomentar()">Pošalji</button>
+                    </div>
+                    @if (porukaKomentar) {
+                        <p class="mt-1" [class.poruka-uspeh]="porukaKomentar.includes('Uspešno')" [class.poruka-greska]="!porukaKomentar.includes('Uspešno')">
+                            {{ porukaKomentar }}
+                        </p>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="mt-2">
+            <a class="btn btn-secondary" routerLink="/">← Nazad</a>
+        </div>
+    </div>
+}

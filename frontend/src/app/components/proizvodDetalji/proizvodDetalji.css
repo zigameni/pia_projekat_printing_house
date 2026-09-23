@@ -1,0 +1,99 @@
+.detalji-glavno {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.detalji-slika {
+    flex: 0 0 320px;
+}
+
+.detalji-info {
+    flex: 1;
+    min-width: 260px;
+}
+
+.detalji-info h2 {
+    margin-top: 0;
+}
+
+.bez-slike {
+    width: 320px;
+    height: 240px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(160deg, #eef2ff 0%, #e0e7ff 60%, #c7d2fe 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-dark);
+    font-size: 2.4rem;
+    text-align: center;
+    padding: 12px;
+    border: 1px dashed #a5b4fc;
+}
+
+.bez-slike span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 8px;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lajk {
+    color: var(--success);
+    font-weight: 700;
+    margin-right: 16px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.dislajk {
+    color: var(--danger);
+    font-weight: 700;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.komentar-moj {
+    border-left: 4px solid #f97316;
+    padding-left: 12px;
+    background: #fff7ed;
+}
+
+.komentar-forma textarea {
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-family: inherit;
+}
+
+.radio-label {
+    margin-right: 1rem;
+    font-weight: normal;
+}
+
+/* ==== N-2: tekst za štampu ==== */
+.tekst-stampe textarea {
+    display: block;
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.tekst-stampe small {
+    display: block;
+    margin-top: 4px;
+    color: #6b7280;
+    font-size: 0.8rem;
+}

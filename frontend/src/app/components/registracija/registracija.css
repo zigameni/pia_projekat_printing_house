@@ -1,0 +1,32 @@
+.registracija-kartica {
+    max-width: 640px;
+    margin: 24px auto;
+}
+
+.tipovi {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.tip-dugme input {
+    display: none;
+}
+
+.tip-dugme span {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    background: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.tip-dugme input:checked + span {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}

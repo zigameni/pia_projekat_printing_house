@@ -1,0 +1,94 @@
+<div class="card">
+    <h2>📋 Javne nabavke</h2>
+
+    @if (poruka) {
+        <p [class.poruka-uspeh]="uspesno" [class.poruka-greska]="!uspesno">{{ poruka }}</p>
+    }
+
+    <h3>Rasp novu nabavku</h3>
+    <div class="forma-stavke">
+        <div class="form-row">
+            <div>
+                <label>Šifra proizvoda</label>
+                <input type="text" [(ngModel)]="novaStavkaSifra" placeholder="npr. PR-001" />
+            </div>
+            <div>
+                <label>Naziv proizvoda</label>
+                <input type="text" [(ngModel)]="novaStavkaNaziv" placeholder="npr. Vizit karte" />
+            </div>
+            <div>
+                <label>Količina</label>
+                <input type="number" [(ngModel)]="novaStavkaKolicina" min="1" style="width: 80px;" />
+            </div>
+            <div class="dugme-okvir">
+                <button class="btn btn-secondary" (click)="dodajStavku()">+ Dodaj stavku</button>
+            </div>
+        </div>
+
+        @if (stavkeForme.length > 0) {
+            <table class="mt-1">
+                <thead>
+                    <tr>
+                        <th>Šifra</th>
+                        <th>Naziv</th>
+                        <th class="desno">Količina</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (s of stavkeForme; track $index) {
+                        <tr>
+                            <td>{{ s.sifra }}</td>
+                            <td>{{ s.naziv }}</td>
+                            <td class="desno">{{ s.kolicina }}</td>
+                            <td><button class="btn btn-danger btn-mali" (click)="ukloniStavku($index)">Ukloni</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="mt-1">
+                <button class="btn" (click)="raspisi()">📢 RASPŠI NABAVKU</button>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card mt-2">
+    <h3>Moje nabavke</h3>
+    <div class="tabela-okvir">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Datum</th>
+                    <th class="desno">Stavki</th>
+                    <th class="desno">Ponuda</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (n of nabavke; track n.idNabavke) {
+                    <tr>
+                        <td>{{ n.idNabavke }}</td>
+                        <td>{{ formatirajDatum(n.datumVremeRaspisivanja) }}</td>
+                        <td class="desno">{{ n.stavke.length }}</td>
+                        <td class="desno">{{ n.brojPonuda }}</td>
+                        <td>
+                            @if (n.zavrsena) {
+                                @if (n.pobednikId) {
+                                    <span class="status-badge status-pobednik">Pobednik: {{ n.pobednikId }}</span>
+                                } @else {
+                                    <span class="status-badge status-zavrsena">Završena (bez ponuda)</span>
+                                }
+                            } @else {
+                                <span class="status-badge status-otvorena">Otvorena</span>
+                            }
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr><td colspan="5">Nema nabavki.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

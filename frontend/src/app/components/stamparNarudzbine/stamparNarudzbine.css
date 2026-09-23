@@ -1,0 +1,74 @@
+.podnaslov {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+/* Tabela ima 7 kolona — na užim ekranima bolje da se skroluje nego da se lomi */
+.tabela-okvir {
+    overflow-x: auto;
+}
+
+.tabela-okvir table {
+    min-width: 980px;
+}
+
+.sifra-celija {
+    white-space: nowrap;
+}
+
+.stavka + .stavka {
+    margin-top: 6px;
+}
+
+.sitno {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.tekst-stavke {
+    color: #6b7280;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.btn-mali {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+.napomena {
+    color: #6b7280;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Iste boje kao u profil.css (komponentni stilovi se ne dele između komponenti) */
+.status-naruceno {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-u-stampi {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-isporuceno {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+.status-primljeno {
+    background: #d1ecf1;
+    color: #0c5460;
+}

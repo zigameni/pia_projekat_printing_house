@@ -1,0 +1,36 @@
+.forma-stavke {
+    margin-bottom: 1rem;
+}
+
+.btn-mali {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-otvorena {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-pobednik {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-zavrsena {
+    background: #e2e3e5;
+    color: #383d41;
+}

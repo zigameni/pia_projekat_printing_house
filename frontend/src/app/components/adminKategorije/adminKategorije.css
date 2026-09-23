@@ -1,0 +1,150 @@
+.zaglavlje-sekcije {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.zaglavlje-sekcije h2 {
+    margin: 0;
+}
+
+.podnaslov {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.sitno {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+/* Isti lokalni stilovi kao u `adminKorisnici` — svaka komponenta nosi svoje */
+.btn-mali {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+.btn-opasno {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.btn-opasno:hover {
+    background: #b02a37;
+    border-color: #b02a37;
+}
+
+/* ==== Nova kategorija ==== */
+.nova-kategorija {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.nova-kategorija > div:first-child {
+    flex: 1 1 260px;
+}
+
+.nova-kategorija label {
+    margin-top: 0;
+}
+
+.dugme {
+    flex: 0 0 auto;
+}
+
+/* ==== Jedna kategorija ==== */
+.kategorija {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    margin-top: 1rem;
+    background: #fff;
+}
+
+.kategorija-zaglavlje {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.kategorija-ime {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.kategorija-ime strong {
+    font-size: 1.05rem;
+}
+
+.broj {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.upozorenje {
+    margin: 6px 0 0;
+    color: #b02a37;
+    font-size: 0.85rem;
+}
+
+.akcije {
+    white-space: nowrap;
+}
+
+.akcije .btn-mali + .btn-mali,
+.akcije .btn-mali + .sitno {
+    margin-left: 6px;
+}
+
+/* ==== Potkategorije ==== */
+.potkategorije {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+}
+
+.potkategorije li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    border-top: 1px dashed #e5e7eb;
+}
+
+.potkategorija-naziv {
+    flex: 1 1 auto;
+}
+
+/* ==== Dodavanje potkategorije ==== */
+.nova-potkategorija {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 0.6rem;
+}
+
+.nova-potkategorija input {
+    flex: 0 1 280px;
+    padding: 6px 8px;
+    font-size: 0.85rem;
+}

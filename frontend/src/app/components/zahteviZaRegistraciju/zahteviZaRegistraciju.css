@@ -1,0 +1,75 @@
+.zaglavlje-sekcije {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.zaglavlje-sekcije h2 {
+    margin: 0;
+}
+
+.podnaslov {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.tabela-okvir {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.tabela-okvir table {
+    min-width: 980px;
+}
+
+.sifra-celija {
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.sitno {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.zahtev {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* Profilna slika podnosioca zahteva pomaže administratoru da prepozna nalog */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e5e7eb;
+    flex: 0 0 auto;
+}
+
+.avatar-inicijal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef2f7;
+    color: #475569;
+    font-weight: 600;
+}
+
+.akcije {
+    white-space: nowrap;
+}
+
+.akcije .btn-mali + .btn-mali,
+.akcije .sitno + .btn-mali {
+    margin-left: 6px;
+}
+
+.btn-mali {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+}

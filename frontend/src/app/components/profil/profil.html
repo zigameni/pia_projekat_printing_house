@@ -1,0 +1,205 @@
+@if (korisnik) {
+    <div class="card">
+        <div class="profil-zaglavlje">
+            <h2>Moj profil</h2>
+            @if (!izmena) {
+                <button class="btn btn-secondary" (click)="zapocniIzmenu()">✏️ Izmeni podatke</button>
+            }
+        </div>
+
+        @if (porukaIzmenaUspeh) {
+            <div class="poruka poruka-uspeh">{{ porukaIzmenaUspeh }}</div>
+        }
+
+        @if (izmena) {
+            <div class="forma-izmena">
+                <div class="form-row">
+                    <div>
+                        <label>Korisničko ime</label>
+                        <input type="text" [value]="korisnik.korisnickoIme" disabled />
+                        <small class="napomena-polja">Korisničko ime se ne može menjati.</small>
+                    </div>
+                    <div>
+                        <label>I-mejl adresa</label>
+                        <input type="email" [(ngModel)]="email" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label>Ime</label>
+                        <input type="text" [(ngModel)]="ime" />
+                    </div>
+                    <div>
+                        <label>Prezime</label>
+                        <input type="text" [(ngModel)]="prezime" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label>Kontakt telefon</label>
+                        <input type="text" [(ngModel)]="telefon" />
+                    </div>
+                </div>
+
+                @if (jePravnoIliStampar()) {
+                    <div class="form-row">
+                        <div>
+                            <label>Naziv institucije</label>
+                            <input type="text" [(ngModel)]="nazivInstitucije" />
+                        </div>
+                        <div>
+                            <label>Adresa sedišta</label>
+                            <input type="text" [(ngModel)]="adresa" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div>
+                            <label>Matični broj (8 cifara)</label>
+                            <input type="text" [(ngModel)]="maticniBroj" />
+                        </div>
+                        <div>
+                            <label>PIB (9 cifara, ne počinje nulom)</label>
+                            <input type="text" [(ngModel)]="pib" />
+                        </div>
+                    </div>
+                }
+
+                @if (jeStampar()) {
+                    <div class="form-row">
+                        <div>
+                            <label>Grad</label>
+                            <input type="text" [(ngModel)]="grad" />
+                        </div>
+                    </div>
+                }
+
+                <div class="mt-2">
+                    <label>Nova profilna slika (opciono — 100x100 do 250x250 px, JPG/PNG/GIF)</label>
+                    <div class="profil-slika-pregled">
+                        @if (slikaPregled) {
+                            <img [src]="slikaPregled" alt="Pregled nove slike" />
+                        } @else if (korisnik.slika) {
+                            <img [src]="'http://localhost:4000/' + korisnik.slika" [alt]="korisnik.korisnickoIme" />
+                        } @else {
+                            <div class="bez-slike">👤</div>
+                        }
+                    </div>
+                    <input type="file" accept="image/jpeg,image/png,image/gif" (change)="naIzborSlike($event)" />
+                    @if (porukaSlika) {
+                        <div class="poruka poruka-greska">{{ porukaSlika }}</div>
+                    }
+                </div>
+
+                <div class="mt-2 forma-dugmad">
+                    <button class="btn" (click)="sacuvaj()">Sačuvaj izmene</button>
+                    <button class="btn btn-secondary" (click)="otkaziIzmenu()">Otkaži</button>
+                </div>
+
+                @if (porukaIzmena) {
+                    <div class="poruka poruka-greska">{{ porukaIzmena }}</div>
+                }
+            </div>
+        } @else {
+            <div class="profil-info">
+                <div class="profil-slika">
+                    @if (korisnik.slika) {
+                        <img [src]="'http://localhost:4000/' + korisnik.slika" [alt]="korisnik.korisnickoIme" />
+                    } @else {
+                        <div class="bez-slike">👤</div>
+                    }
+                </div>
+                <div class="profil-podaci">
+                    <p><strong>Korisničko ime:</strong> {{ korisnik.korisnickoIme }}</p>
+                    <p><strong>Ime i prezime:</strong> {{ korisnik.ime }} {{ korisnik.prezime }}</p>
+                    <p><strong>E-mail:</strong> {{ korisnik.email }}</p>
+                    <p><strong>Telefon:</strong> {{ korisnik.telefon }}</p>
+                    @if (korisnik.nazivInstitucije) {
+                        <p><strong>Institucija:</strong> {{ korisnik.nazivInstitucije }}</p>
+                    }
+                    @if (korisnik.adresa) {
+                        <p><strong>Adresa:</strong> {{ korisnik.adresa }}</p>
+                    }
+                    @if (korisnik.grad) {
+                        <p><strong>Grad:</strong> {{ korisnik.grad }}</p>
+                    }
+                    <p><strong>Tip:</strong> {{ korisnik.tip }} ({{ korisnik.vrsta || '—' }})</p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="card">
+        <h3>Aktivne narudžbine</h3>
+        <div class="tabela-okvir">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th class="sortable" (click)="sortirajAktivne()">Datum {{ sortAktivneAsc ? '↑' : '↓' }}</th>
+                        <th>Štamparija</th>
+                        <th class="desno">Iznos (RSD)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (n of narudzbineAktivne; track n.idFakture) {
+                        <tr>
+                            <td>{{ n.idFakture }}</td>
+                            <td>{{ formatirajDatum(n.datumIzdavanja) }}</td>
+                            <td>{{ n.nazivStamparije }} ({{ n.grad }})</td>
+                            <td class="desno">{{ n.ukupanIznos }}</td>
+                            <td>
+                                <span class="status-badge status-{{ n.status }}">{{ n.status }}</span>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="5">Nema aktivnih narudžbina.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Arhiva narudžbina</h3>
+        <div class="tabela-okvir">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th class="sortable" (click)="sortirajArhivu()">Datum {{ sortArhivaAsc ? '↑' : '↓' }}</th>
+                        <th>Štamparija</th>
+                        <th class="desno">Iznos (RSD)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (n of narudzbineArhiva; track n.idFakture) {
+                        <tr>
+                            <td>{{ n.idFakture }}</td>
+                            <td>{{ formatirajDatum(n.datumIzdavanja) }}</td>
+                            <td>{{ n.nazivStamparije }} ({{ n.grad }})</td>
+                            <td class="desno">{{ n.ukupanIznos }}</td>
+                            <td>
+                                <span class="status-badge status-{{ n.status }}">{{ n.status }}</span>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="5">Nema arhiviranih narudžbina.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+} @else {
+    <div class="card">
+        <p class="poruka poruka-greska">Niste prijavljeni.</p>
+        <a routerLink="/login">Prijavite se</a>
+    </div>
+}

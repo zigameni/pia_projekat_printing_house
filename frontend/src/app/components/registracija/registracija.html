@@ -1,0 +1,102 @@
+<div class="card registracija-kartica">
+    <h2>Registracija</h2>
+
+    <div class="tipovi">
+        <label class="tip-dugme">
+            <input type="radio" name="tip" [(ngModel)]="tip" value="fizicko" />
+            <span>Fizičko lice</span>
+        </label>
+        <label class="tip-dugme">
+            <input type="radio" name="tip" [(ngModel)]="tip" value="pravno" />
+            <span>Pravno lice</span>
+        </label>
+        <label class="tip-dugme">
+            <input type="radio" name="tip" [(ngModel)]="tip" value="stampar" />
+            <span>Štamparija</span>
+        </label>
+    </div>
+
+    <div class="form-row">
+        <div>
+            <label>Korisničko ime</label>
+            <input type="text" [(ngModel)]="korisnickoIme" />
+        </div>
+        <div>
+            <label>Lozinka</label>
+            <input type="password" [(ngModel)]="lozinka" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div>
+            <label>Ime (odgovorno lice)</label>
+            <input type="text" [(ngModel)]="ime" />
+        </div>
+        <div>
+            <label>Prezime</label>
+            <input type="text" [(ngModel)]="prezime" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div>
+            <label>Kontakt telefon</label>
+            <input type="text" [(ngModel)]="telefon" />
+        </div>
+        <div>
+            <label>I-mejl adresa</label>
+            <input type="email" [(ngModel)]="email" />
+        </div>
+    </div>
+
+    @if (tip != 'fizicko') {
+        <div class="form-row">
+            <div>
+                <label>Naziv institucije</label>
+                <input type="text" [(ngModel)]="nazivInstitucije" />
+            </div>
+            <div>
+                <label>Adresa sedišta</label>
+                <input type="text" [(ngModel)]="adresa" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div>
+                <label>Matični broj (8 cifara)</label>
+                <input type="text" [(ngModel)]="maticniBroj" />
+            </div>
+            <div>
+                <label>PIB (9 cifara)</label>
+                <input type="text" [(ngModel)]="pib" />
+            </div>
+        </div>
+    }
+
+    @if (tip == 'stampar') {
+        <div class="form-row">
+            <div>
+                <label>Grad</label>
+                <input type="text" [(ngModel)]="grad" />
+            </div>
+        </div>
+    }
+
+    <div class="mt-2">
+        <label>Profilna slika (opciono, 100x100 – 250x250 px, JPG/PNG/GIF)</label>
+        <input type="file" accept="image/jpeg,image/png,image/gif" (change)="naIzborSlike($event)" />
+        @if (porukaSlika) {
+            <div class="poruka poruka-greska">{{ porukaSlika }}</div>
+        }
+    </div>
+
+    <div class="mt-2">
+        <button class="btn-accent" (click)="posalji()">Registruj se</button>
+    </div>
+
+    @if (poruka) {
+        <div class="poruka poruka-greska">{{ poruka }}</div>
+    }
+    @if (porukaUspeh) {
+        <div class="poruka poruka-uspeh">{{ porukaUspeh }}</div>
+    }
+
+    <p class="mt-2">Već imate nalog? <a routerLink="/login">Prijavite se</a></p>
+</div>

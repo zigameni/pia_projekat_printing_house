@@ -1,0 +1,76 @@
+<div class="card">
+    <h2>🏷️ Licitacije — otvorene nabavke</h2>
+
+    @if (poruka) {
+        <p [class.poruka-uspeh]="uspesno" [class.poruka-greska]="!uspesno">{{ poruka }}</p>
+    }
+
+    @if (aktivnaNabavka) {
+        <div class="card ponuda-forma">
+            <h3>Ponuda za {{ aktivnaNabavka.idNabavke }}</h3>
+            <p>Klijent: {{ aktivnaNabavka.klijentIme }}</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Šifra</th>
+                        <th>Naziv</th>
+                        <th class="desno">Količina</th>
+                        <th class="desno">Jedinična cena (RSD)</th>
+                        <th class="desno">Iznos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (s of ponudaStavke; track s.sifra) {
+                        <tr>
+                            <td>{{ s.sifra }}</td>
+                            <td>{{ s.naziv }}</td>
+                            <td class="desno">{{ s.kolicina }}</td>
+                            <td class="desno">
+                                <input type="number" [(ngModel)]="s.jedinicnaCena" min="0" style="width: 100px;" />
+                            </td>
+                            <td class="desno">{{ (s.jedinicnaCena || 0) * s.kolicina }} RSD</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <p class="desno mt-1"><strong>Ukupno: {{ ukupno() }} RSD</strong></p>
+            <div class="mt-1">
+                <button class="btn" (click)="posaljiPonudu()">📤 POŠALJI PONUDU</button>
+                <button class="btn btn-secondary" (click)="zatvoriPonudu()">Otkaži</button>
+            </div>
+        </div>
+    }
+
+    <div class="tabela-okvir mt-2">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Klijent</th>
+                    <th>Datum</th>
+                    <th class="desno">Stavki</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (n of nabavke; track n.idNabavke) {
+                    <tr [class.vec-ponuda]="n.poslaoPonudu">
+                        <td>{{ n.idNabavke }}</td>
+                        <td>{{ n.klijentIme }}</td>
+                        <td>{{ formatirajDatum(n.datumVremeRaspisivanja) }}</td>
+                        <td class="desno">{{ n.stavke.length }}</td>
+                        <td>
+                            @if (n.poslaoPonudu) {
+                                <span class="status-badge status-poslato">Poslato ✓</span>
+                            } @else {
+                                <button class="btn btn-mali" (click)="otvoriPonudu(n)">Pošalji ponudu</button>
+                            }
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr><td colspan="5">Nema otvorenih nabavki.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

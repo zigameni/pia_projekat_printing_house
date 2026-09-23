@@ -1,0 +1,119 @@
+.profil-info {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.profil-slika img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary, #3498db);
+}
+
+.profil-slika .bez-slike {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.profil-podaci p {
+    margin: 0.3rem 0;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-naruceno {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-placeno {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.status-u_stampi {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-isporuceno {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+.status-primljeno {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+/* ==== N-1: izmena podataka profila ==== */
+.profil-zaglavlje {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.profil-zaglavlje h2 {
+    margin: 0;
+}
+
+.forma-izmena {
+    margin-top: 1rem;
+}
+
+.forma-izmena .form-row + .form-row {
+    margin-top: 16px;
+}
+
+.napomena-polja {
+    display: block;
+    margin-top: 4px;
+    color: #6b7280;
+    font-size: 0.8rem;
+}
+
+.profil-slika-pregled {
+    margin: 8px 0;
+}
+
+.profil-slika-pregled img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary, #3498db);
+}
+
+.profil-slika-pregled .bez-slike {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.forma-dugmad {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}

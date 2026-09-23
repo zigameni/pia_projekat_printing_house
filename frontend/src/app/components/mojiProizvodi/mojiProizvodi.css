@@ -1,0 +1,138 @@
+.zaglavlje-sekcije {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.zaglavlje-sekcije h2 {
+    margin: 0;
+}
+
+.forma-proizvod {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.forma-proizvod .form-row + .form-row,
+.forma-proizvod .form-row + .mt-2,
+.forma-proizvod .mt-2 + .form-row,
+.forma-proizvod h4 + .usluga-red {
+    margin-top: 16px;
+}
+
+.forma-proizvod textarea {
+    display: block;
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.usluga-red {
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius-sm, 6px);
+    background: #f9fafb;
+}
+
+.slika-pregled {
+    margin-top: 8px;
+}
+
+.slika-pregled img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: var(--radius-sm, 6px);
+    border: 1px solid #d1d5db;
+}
+
+.slika-mala {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+}
+
+.bez-slike-mala {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    background: #eef2ff;
+    font-size: 1.2rem;
+}
+
+.cena-usluge {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.btn-mali {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+/* ==== Ažuriranje količina (spec 4.3) ==== */
+.kolicina-celija {
+    white-space: nowrap;
+}
+
+.input-kolicina {
+    width: 64px;
+    margin-right: 6px;
+}
+
+/* Kolona za količinu je sada šira (polje + dugme) — na užim ekranima tabela treba da se
+   skroluje, a ne da lomi šifru i nazive u dva reda. */
+.tabela-okvir {
+    overflow-x: auto;
+}
+
+.tabela-okvir table {
+    min-width: 980px;
+}
+
+/* Šifra ("PR-001") se lomila u dva reda jer je kolona za količinu sada šira */
+.tabela-okvir td:nth-child(2),
+.tabela-okvir th:nth-child(2) {
+    white-space: nowrap;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.forma-dugmad {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-aktivan {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-neaktivan {
+    background: #e2e3e5;
+    color: #383d41;
+}

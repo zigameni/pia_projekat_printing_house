@@ -1,0 +1,436 @@
+   -  
+     
+
+             
+                                2025/26. 
+
+   ,,Printing House"     ( ) 
+.         
+ .    :  (   ),
+    .
+
+  
+
+        
+ (   ).      
+      .     
+  .    ,   
+  ,           
+       - ,     
+    ,   .     
+         5     
+     .
+
+           .
+         , 
+ ,        (   
+      /,      
+    ).
+
+        ­  , 
+    :
+-   (  ,      ),
+- 1,
+- ,
+- ,
+-  ,
+- -  (,      - ),
+-   (   ).
+
+,  -  ,   ,    ,
+         ,  ,  
+  (  ).      8 
+     .     ,   
+  0.        ,  
+           .
+
+1      ( 8 ,  12 ,
+     ,      ,    ). 
+      !
+
+                                                                                                                           1
+   -  
+     
+
+     (     JavaScript
+),             
+         
+.       ,    
+      .  
+      .
+
+ ,      ( 
+100100 px,    250250 px,  JPG/PNG/GIF ).  
+      FileUpload ,    
+    ,           
+/ ,     .      ,
+    ,      
+ default_profile_image.jpg.
+
+  ­   
+
+           
+     5     
+  ,," ().       
+         (. 
+,  ,...) /      
+.     ,, ",      
+        . 
+     ,     
+ ,,".      (  )
+   ,       . 
+   ,,",       
+ ­  ,     , , 
+,,"/,,",      (    
+ , . thumbnail,      ­      
+ ,            
+ ,       ).
+
+
+
+    ,       
+  :
+
+     :      (  
+          ).        
+          .          ,
+                  
+         ,    .     
+         :  ,     ,     
+         ,      (    
+          ),    ( ),    ,,",
+                     
+
+                                                                                                                           2
+   -  
+     
+
+         ,," (      : ,," =>
+         [,,"2] => ,, " => ,," => ,,").
+
+      :      , 
+                /  .  
+            ,     , 
+            ,,"   ,   
+              (     ).
+           :   ,   , 
+              (  ,    ), 
+                  (. , 
+          ,    , .),  
+         ,     .     
+         ,            .
+           ,,"      ,  
+             ( JPG/PNG/GIF 3),    
+         ()    ,        
+          ,    -    ,, 
+         ".       : ,,"  
+               ,  ,,"   
+                .     
+              ,      
+                 ,  
+          ,,     ".
+
+        (. -):    
+                 
+          (  , ,  ,    
+         ).   -       
+          ,    ,  ,,",
+             ,      
+           (.      3  ,
+            3  ).     
+         (      )    ,,",
+                   - ,, ".
+
+      , /   PDF ()   -.
+
+      -      ,,"   
+          (. Stripe Test Mode4 / Sandbox PayPal Developer5)   
+            ,      /, CVC 
+              (MM/GG). ,  ,,"  ,,
+
+2          .
+3    HTML5 Canvas   CSS  (position: absolute/relative)
+    ,   .   
+    .
+4  : https://stripe.com/docs/testing
+5  : https://developer.paypal.com
+
+                                                                                                                           3
+   -  
+     
+
+         "       ,,",   
+          ,  ,   ,      .
+
+      -       ,, "    
+          -  ,     -,   
+         ,         
+         ,   10 6.       -
+                    .
+            ,      
+                   , 
+         ,    ,     ,, ".
+
+         ,, "      
+           ,      ,,".     
+             ,,",      
+         ,,".        
+          (       ),   
+              (  , ,   
+          ).    ,    ,,"
+         ()  ,," ()     .   
+         ,,"/,,"        ,  
+              (  ,  
+             ).      
+               .
+
+
+
+    ,    ,    
+,     :
+
+     :      (  
+          ).        
+          .
+
+       :       
+           .      
+              :
+
+             o    (,  , , ,
+                  , ...).
+
+             o    (, rollups, ).
+
+             o   (,   ,   ,
+                    ).
+
+               ,   
+          .      ,   
+
+6        WebSocket / Background job,    
+       ,       , 
+     .
+
+                                                                                                                           4
+   -  
+     
+
+           ,   / .    
+              .
+
+      :        .
+
+       :      ,  
+         JSON ,         . 
+             ,   .     
+          1    .
+
+      :         
+          ,         ,,"
+           ,, ",      ,,".
+
+     :           ,
+                 
+             .      
+         (),           
+           .        ( 
+          )   .
+
+     :   ,      
+            PDF          
+           (   ).
+
+ 
+
+      .
+
+  ,    ,  
+   .      
+         .
+
+     .    
+       .
+
+   ,     : 
+       (3 )    
+    () ;     
+     (  /     )
+   ;       ,  
+  (        ).
+
+  
+
+        .   
+     Cascading Style Sheets (. CSS).  
+       (header  footer).     
+           
+  (        ).  
+             (:
+ ).         .
+
+                                                                                                                           5
+   -  
+     
+
+           (,,responsive web
+design").      3   .
+
+:
+
+           
+  .            
+      .    30 .
+
+           
+    (     ).
+         ,   
+         . 
+             .
+
+           ,
+       ,   
+.        ,   
+       ,    .
+
+  ,      PDF   
+   ,    -   
+,     ,      
+.    (,    .)   
+  (API).
+
+    ,   
+   ,       
+  ,      24  
+            .
+
+      :
+
+ 1) Angular 20 framework  Spring Boot 3.5.x ( 4.x)    
+          (    
+     ;          
+      );        
+      MySQL ( PostgreSQL)    
+
+ 2) Angular 20 framework  Express  NodeJS    ( 
+        ;       
+         ),     MongoDB.
+
+        . 
+            (.
+          ,    ).
+
+            
+,        
+,     -5 .
+
+                                                                                                                           6
+   -  
+     
+
+        ,  
+ ,             
+ .         .
+
+         
+    ,     .  
+  ,       ,  
+       0,      
+       .
+
+ 1: JSON    
+
+{
+   "stampaorijaId": "stampa_001",
+   "nazivStamparije": "Copy Studio Kumanovska",
+   "proizvodi": [
+       {
+          "sifra": "PR-001",
+          "naziv": "Pamucna Polo Majica",
+          "opis": "Kvalitetna pamucna polo majica 180g/m2, pogodna za
+
+brendiranje i korporativne uniforme.",
+          "kategorija": "Kreativne stampe",
+          "potkategorija": "Stampa na majicama",
+          "jedinicnaCena": 1200.00,
+          "kolicinaNaLageru": 150,
+          "dostupneBoje": ["Bela", "Crna", "Tamno plava", "Siva"],
+              "slikaUrl": "",
+          "dodatneSlike": [],
+          "uslugeStampe": [
+              {
+                  "idUsluge": "USL-01",
+                  "tipStampe": "Direktna stampa na tekstil (DTG)",
+                  "dodatnaCenaPoKomadu": 350.00,
+                  "maxSirinaMm": 300,
+                  "maxVisinaMm": 400
+              },
+              {
+                  "idUsluge": "USL-02",
+                  "tipStampe": "Preslikac (Sito preslikac)",
+                  "dodatnaCenaPoKomadu": 200.00,
+                  "maxSirinaMm": 280,
+                  "maxVisinaMm": 350
+              }
+          ]
+
+       },
+       {
+
+          "sifra": "PR-002",
+          "naziv": "Keramicka solja 330ml",
+          "opis": "Bela keramicka solja visokog sjaja, idealna za sublimacionu
+stampu visoke rezolucije.",
+          "kategorija": "Kreativne stampe",
+          "potkategorija": "Solje",
+          "jedinicnaCena": 320.00,
+          "kolicinaNaLageru": 500,
+
+                                                                                                                           7
+   -  
+     
+
+          "dostupneBoje": ["Bela"],
+          "slikaUrl": "",
+          "dodatneSlike": [],
+          "uslugeStampe": [
+
+              {
+                  "idUsluge": "USL-03",
+                  "tipStampe": "Sublimaciona stampa",
+                  "dodatnaCenaPoKomadu": 150.00,
+                  "maxSirinaMm": 200,
+                  "maxVisinaMm": 85
+
+              }
+          ]
+       },
+       {
+          "sifra": "PR-003",
+          "naziv": "Promotivni Roll-up Baner 85x200cm",
+          "opis": "Lagan aluminijumski mehanizam sa torbom i stampom na
+kvalitetnom baner platnu.",
+          "kategorija": "Stampa velikih formata",
+          "potkategorija": "Rollups",
+          "jedinicnaCena": 4500.00,
+          "kolicinaNaLageru": 20,
+          "dostupneBoje": ["Bela", "Crna"],
+          "slikaUrl": "",
+          "dodatneSlike": [],
+          "uslugeStampe": [
+
+              {
+                  "idUsluge": "USL-04",
+                  "tipStampe": "Eko-solventna stampa visoke rezolucije",
+                  "dodatnaCenaPoKomadu": 800.00,
+                  "maxSirinaMm": 850,
+                  "maxVisinaMm": 2000
+
+              }
+          ]
+       }
+   ]
+}
+
+                                                                                                                           8
+

@@ -1,0 +1,101 @@
+@if (korisnik) {
+    <div class="card">
+        <div class="zaglavlje-sekcije">
+            <h2>📝 Zahtevi za registraciju</h2>
+            <span class="sitno">{{ zahtevi.length }} {{ zahtevi.length == 1 ? 'zahtev čeka' : 'zahteva čeka' }} odluku</span>
+        </div>
+        <p class="podnaslov">
+            Pravna lica i štamparije se ne aktiviraju sami — njihov nalog ostaje u statusu <strong>na_cekanju</strong>
+            dok ga administrator ne odobri. <strong>Odobri</strong> prebacuje nalog u status <strong>aktivan</strong>
+            (korisnik tada može da se prijavi). <strong>Odbij</strong> briše zahtev zajedno sa njegovom profilnom slikom,
+            čime se korisničko ime, i-mejl i matični broj/PIB oslobađaju za novu registraciju.
+        </p>
+
+        @if (poruka) {
+            <div class="poruka poruka-uspeh">{{ poruka }}</div>
+        }
+        @if (greska) {
+            <div class="poruka poruka-greska">{{ greska }}</div>
+        }
+
+        <div class="tabela-okvir">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Zahtev</th>
+                        <th>Odgovorno lice</th>
+                        <th>Kontakt</th>
+                        <th>Institucija</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (z of zahtevi; track z.korisnickoIme) {
+                        <tr>
+                            <td class="sifra-celija">
+                                <div class="zahtev">
+                                    @if (slikaPutanja(z)) {
+                                        <img class="avatar" [src]="slikaPutanja(z)" [alt]="z.korisnickoIme" />
+                                    } @else {
+                                        <span class="avatar avatar-inicijal">{{ inicijal(z) }}</span>
+                                    }
+                                    <span>
+                                        {{ z.korisnickoIme }}
+                                        <div class="sitno">{{ tipTekst(z) }}</div>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div>{{ z.ime }} {{ z.prezime }}</div>
+                                <div class="sitno">odgovorno lice institucije</div>
+                            </td>
+                            <td>
+                                <div>{{ z.email }}</div>
+                                <div class="sitno">{{ z.telefon }}</div>
+                            </td>
+                            <td>
+                                @if (imaPodatkeFirme(z)) {
+                                    <div>{{ z.nazivInstitucije }}</div>
+                                    <div class="sitno">{{ z.adresa }}, {{ z.grad }}</div>
+                                    <div class="sitno">MB {{ z.maticniBroj }} · PIB {{ z.pib }}</div>
+                                } @else {
+                                    <span class="sitno">—</span>
+                                }
+                            </td>
+                            <td class="akcije">
+                                @if (odbijanjeKorisnickoIme == z.korisnickoIme) {
+                                    <span class="sitno">Obrisati zahtev?</span>
+                                    <button class="btn btn-danger btn-mali"
+                                            [disabled]="obrada == z.korisnickoIme"
+                                            (click)="odbij(z)">Potvrdi odbijanje</button>
+                                    <button class="btn btn-secondary btn-mali" (click)="otkaziOdbijanje()">Otkaži</button>
+                                } @else {
+                                    <button class="btn btn-success btn-mali"
+                                            [disabled]="!!obrada"
+                                            (click)="odobri(z)">Odobri</button>
+                                    <button class="btn btn-secondary btn-mali"
+                                            [disabled]="!!obrada"
+                                            (click)="zapocniOdbijanje(z)">Odbij</button>
+                                }
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="5">Nema zahteva koji čekaju odluku.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <p class="sitno">
+            Zahtev koji je već obrađen ovde se ne prikazuje. Status svih naloga je u
+            <a routerLink="/korisnici">👥 Korisnici</a>.
+        </p>
+    </div>
+} @else {
+    <div class="card">
+        <p class="poruka poruka-greska">Niste prijavljeni.</p>
+        <a routerLink="/login">Prijavite se</a>
+    </div>
+}

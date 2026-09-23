@@ -1,0 +1,84 @@
+@if (kreiraneFakture.length > 0) {
+    <div class="card">
+        <h2>✅ Narudžba uspešno poslata!</h2>
+        <p>Kreirane fakture:</p>
+        <ul>
+            @for (f of kreiraneFakture; track f.idFakture) {
+                <li><strong>{{ f.idFakture }}</strong> — {{ f.nazivStamparije }}: {{ f.ukupanIznos }} RSD</li>
+            }
+        </ul>
+
+        @if (emailPoslat) {
+            <p class="poruka poruka-uspeh">📧 Faktura je poslata na i-mejl: {{ emailPrimaoca }}</p>
+        } @else if (emailPrimaoca) {
+            <p class="poruka poruka-greska">⚠️ Fakture su kreirane, ali i-mejl na {{ emailPrimaoca }} nije poslat.</p>
+        }
+
+        <div class="mt-2">
+            <a class="btn" routerLink="/profil">Pogledaj narudžbine</a>
+            <a class="btn btn-secondary" routerLink="/">← Nastavi kupovinu</a>
+        </div>
+    </div>
+}
+
+@if (kreiraneFakture.length === 0) {
+    <div class="card">
+        <h2>🛒 E-korpa</h2>
+
+        @if (poruka && !uspesno) {
+            <p class="poruka poruka-greska">{{ poruka }}</p>
+        }
+
+        @if (stavke.length === 0 && !poruka) {
+            <p>Korpa je prazna.</p>
+            <a class="btn btn-secondary" routerLink="/">← Nastavi kupovinu</a>
+        }
+
+        @for (stamparijaId of stamparijeKeys(); track stamparijaId) {
+            <div class="korpa-grupa">
+                <h3>Štamparija: {{ grupisano[stamparijaId][0].nazivStamparije }} ({{ grupisano[stamparijaId][0].grad }})</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Proizvod</th>
+                            <th>Boja</th>
+                            <th>Usluga</th>
+                            <th class="desno">Količina</th>
+                            <th class="desno">Cena/kom</th>
+                            <th class="desno">Iznos</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (s of grupisano[stamparijaId]; track s.proizvodId) {
+                            <tr>
+                                <td>
+                                    {{ s.nazivProizvoda }}
+                                    @if (s.tekst) {
+                                        <div class="tekst-stavke">🖨️ {{ s.tekst }}</div>
+                                    }
+                                </td>
+                                <td>{{ s.boja || '—' }}</td>
+                                <td>{{ s.tipStampe || '—' }}</td>
+                                <td class="desno">{{ s.kolicina }}</td>
+                                <td class="desno">{{ s.cena }} RSD</td>
+                                <td class="desno">{{ iznosStavke(s) }} RSD</td>
+                                <td>
+                                    <button class="btn btn-danger btn-mali" (click)="ukloni(s)">Ukloni</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p class="desno"><strong>Za štampariju:</strong> {{ ukupnoPoStamparijama[stamparijaId] }} RSD</p>
+            </div>
+        }
+
+        @if (stavke.length > 0) {
+            <div class="korpa-ukupno">
+                <h3>Ukupno: {{ ukupnoUkupno }} RSD</h3>
+                <button class="btn" (click)="potvrdi()">✅ POTVRDI NARUDŽBINU</button>
+            </div>
+        }
+    </div>
+}

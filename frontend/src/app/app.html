@@ -1,0 +1,69 @@
+<header class="site-header">
+  <div class="container">
+    <a class="logo" routerLink="/" (click)="zatvoriMeni()">
+      <span class="logo-znak">🖨️</span> Printing House
+    </a>
+
+    <button type="button" class="nav-burger" (click)="prebaciMeni()"
+            [attr.aria-expanded]="meniOtvoren"
+            [attr.aria-label]="meniOtvoren ? 'Zatvori meni' : 'Otvori meni'">
+      {{ meniOtvoren ? '✕' : '☰' }}
+    </button>
+
+    <nav class="main-nav" [class.main-nav-otvoren]="meniOtvoren">
+      <div class="nav-veze">
+        @if (ulogovan && ulogovan.tip === 'klijent') {
+          <a routerLink="/korpa" routerLinkActive="aktivan" (click)="zatvoriMeni()">🛒 Korpa</a>
+          <a routerLink="/arhiva" routerLinkActive="aktivan" (click)="zatvoriMeni()">📦 Arhiva</a>
+          @if (ulogovan.vrsta === 'pravno') {
+            <a routerLink="/nabavke" routerLinkActive="aktivan" (click)="zatvoriMeni()">📋 Nabavke</a>
+          }
+        }
+        @if (ulogovan && ulogovan.tip === 'admin') {
+          <a routerLink="/korisnici" routerLinkActive="aktivan" (click)="zatvoriMeni()">👥 Korisnici</a>
+          <a routerLink="/zahtevi-za-registraciju" routerLinkActive="aktivan" (click)="zatvoriMeni()">📝 Zahtevi</a>
+          <a routerLink="/kategorije" routerLinkActive="aktivan" (click)="zatvoriMeni()">🗂️ Kategorije</a>
+        }
+        @if (ulogovan && ulogovan.tip === 'stampar') {
+          <a routerLink="/moji-proizvodi" routerLinkActive="aktivan" (click)="zatvoriMeni()">🧾 Moji proizvodi</a>
+          <a routerLink="/narudzbine-stamparija" routerLinkActive="aktivan" (click)="zatvoriMeni()">📦 Narudžbine</a>
+          <a routerLink="/licitacije" routerLinkActive="aktivan" (click)="zatvoriMeni()">🏷️ Licitacije</a>
+        }
+      </div>
+
+      <div class="nav-desno">
+        @if (ulogovan) {
+          <div class="nav-korisnik">
+            <button type="button" class="nav-korisnik-dugme" [class.otvoren]="korisnickiMeniOtvoren"
+                    (click)="prebaciKorisnickiMeni()">
+              <span class="nav-avatar">{{ inicijal() }}</span>
+              <span class="nav-ime">{{ ulogovan.korisnickoIme }}</span>
+              <span class="nav-strelica">▾</span>
+            </button>
+
+            @if (korisnickiMeniOtvoren) {
+              <div class="nav-dropdown">
+                <div class="nav-dropdown-zaglavlje">
+                  <strong>{{ prikazanoIme() }}</strong>
+                  <span>{{ ulogovan.email }}</span>
+                </div>
+                <a routerLink="/profil" routerLinkActive="aktivan"
+                   (click)="korisnickiMeniOtvoren = false; zatvoriMeni()">👤 Moj profil</a>
+                <button type="button" class="nav-dropdown-odjava" (click)="odjaviSe()">🚪 Izloguj se</button>
+              </div>
+            }
+          </div>
+        } @else {
+          <a class="nav-prijava" routerLink="/login" routerLinkActive="aktivan" (click)="zatvoriMeni()">Prijava</a>
+          <a class="nav-registracija" routerLink="/registracija" routerLinkActive="aktivan" (click)="zatvoriMeni()">Registracija</a>
+        }
+      </div>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
+<footer class="site-footer">
+  <div class="container">© 2026 Printing House — Projekat iz PIA</div>
+</footer>

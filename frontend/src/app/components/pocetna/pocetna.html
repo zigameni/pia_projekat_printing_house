@@ -1,0 +1,98 @@
+<div class="hero">
+    <h2>Dobrodošli u Printing House</h2>
+    <p>Platforma koja povezuje štamparije i klijente — pronađite idealan proizvod za svoju ideju.</p>
+    <div class="stat-cip">
+        Broj registrovanih štamparija: <strong>{{ brojStamparija }}</strong>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🏆 TOP 5 najbolje ocenjenih proizvoda</h3>
+    <ol class="top5">
+        @for (p of top5; track p.sifra; let i = $index) {
+            <li class="top5-item top5-{{ i + 1 }}">
+                <span class="top5-medalja">{{ i + 1 }}</span>
+                <a [routerLink]="['/proizvod', p.sifra]">{{ p.naziv }}</a>
+                <span class="top5-info">— {{ p.nazivStamparije }} ({{ p.grad }}) · {{ p.brojSvidjanja }} 👍</span>
+            </li>
+        }
+    </ol>
+</div>
+
+<div class="card">
+    <h3>Pretraga proizvoda</h3>
+    <form (ngSubmit)="pretrazi()" class="form-row">
+        <div>
+            <label>Naziv proizvoda</label>
+            <input type="text" [(ngModel)]="naziv" name="naziv" placeholder="npr. Hemijska olovka, Polo majica..." />
+        </div>
+        <div>
+            <label>Kategorija</label>
+            <select [(ngModel)]="kategorija" name="kategorija">
+                <option value="">Sve kategorije</option>
+                @for (k of kategorije; track k) {
+                    <option [value]="k">{{ k }}</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label>Grad</label>
+            <select [(ngModel)]="grad" name="grad">
+                <option value="">Svi gradovi</option>
+                @for (g of gradovi; track g) {
+                    <option [value]="g">{{ g }}</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label>Štamparija</label>
+            <select [(ngModel)]="stamparija" name="stamparija">
+                <option value="">Sve štamparije</option>
+                @for (s of stamparije; track s.id) {
+                    <option [value]="s.id">{{ s.naziv }}</option>
+                }
+            </select>
+        </div>
+        <div class="pretraga-dugme">
+            <button type="submit">Pretraži</button>
+            <button type="button" class="btn btn-secondary" (click)="ocisti()">Očisti</button>
+        </div>
+    </form>
+
+    <div class="tabela-okvir mt-2">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sortable" (click)="sortiraj('naziv')" title="Sortiraj po nazivu">
+                        Naziv <span class="sort-strelica" [class.sort-neaktivna]="!jeAktivna('naziv')">{{ strelica('naziv') }}</span>
+                    </th>
+                    <th>Štamparija</th>
+                    <th>Grad</th>
+                    <th class="sortable desno" (click)="sortiraj('cena')" title="Sortiraj po ceni">
+                        Cena (RSD) <span class="sort-strelica" [class.sort-neaktivna]="!jeAktivna('cena')">{{ strelica('cena') }}</span>
+                    </th>
+                    <th class="desno">Na stanju</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (p of rezultati; track p.sifra) {
+                    <tr>
+                        <td>{{ p.naziv }}</td>
+                        <td>{{ p.nazivStamparije }}</td>
+                        <td>{{ p.grad }}</td>
+                        <td class="desno">{{ p.jedinicnaCena }}</td>
+                        <td class="desno">{{ p.kolicinaNaLageru }}</td>
+                        <td class="tacno">
+                            <a class="btn btn-secondary" [routerLink]="['/proizvod', p.sifra]">DETALJI</a>
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="6">Nema rezultata za zadate kriterijume.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

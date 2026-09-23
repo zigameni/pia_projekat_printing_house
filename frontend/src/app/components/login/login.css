@@ -1,0 +1,10 @@
+.login-kartica {
+    max-width: 420px;
+    margin: 40px auto;
+}
+
+.muted-napomena {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 8px;
+}

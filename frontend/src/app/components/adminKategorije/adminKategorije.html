@@ -1,0 +1,92 @@
+@if (korisnik) {
+    <div class="card">
+        <div class="zaglavlje-sekcije">
+            <h2>🗂️ Kategorije proizvoda</h2>
+            <span class="sitno">{{ kategorije.length }} kategorija u sistemu</span>
+        </div>
+        <p class="podnaslov">
+            Dodavanje novih kategorija i potkategorija za štampare. Kategorija ili potkategorija može se
+            obrisati <strong>samo ako je nijedan proizvod ne koristi</strong> — zato je uz svaku stavku
+            ispisan broj proizvoda (računaju se i neaktivni proizvodi).
+        </p>
+
+        @if (poruka) {
+            <div class="poruka poruka-uspeh">{{ poruka }}</div>
+        }
+        @if (greska) {
+            <div class="poruka poruka-greska">{{ greska }}</div>
+        }
+
+        <div class="nova-kategorija">
+            <div>
+                <label>Nova kategorija</label>
+                <input type="text" [(ngModel)]="novaKategorija" placeholder="npr. Digitalna štampa"
+                       (keyup.enter)="dodajKategoriju()" />
+            </div>
+            <div class="dugme">
+                <button class="btn" (click)="dodajKategoriju()">Dodaj kategoriju</button>
+            </div>
+        </div>
+
+        @for (k of kategorije; track k.naziv) {
+            <div class="kategorija">
+                <div class="kategorija-zaglavlje">
+                    <div class="kategorija-ime">
+                        <strong>{{ k.naziv }}</strong>
+                        <span class="broj">{{ tekstProizvoda(k.brojProizvoda) }}</span>
+                    </div>
+                    <div class="akcije">
+                        @if (brisanjeKategorije == k.naziv) {
+                            <button class="btn btn-opasno btn-mali" (click)="obrisiKategoriju(k)">Potvrdi brisanje</button>
+                            <button class="btn btn-secondary btn-mali" (click)="otkaziBrisanje()">Otkaži</button>
+                        } @else if (k.brojProizvoda > 0) {
+                            <span class="sitno">u upotrebi — ne može se obrisati</span>
+                        } @else {
+                            <button class="btn btn-opasno btn-mali" (click)="zapocniBrisanjeKategorije(k)">Obriši</button>
+                        }
+                    </div>
+                </div>
+
+                @if (brisanjeKategorije == k.naziv) {
+                    <p class="upozorenje">
+                        Brisanjem kategorije odlaze i sve njene potkategorije ({{ k.potkategorije.length }}).
+                    </p>
+                }
+
+                <ul class="potkategorije">
+                    @for (p of k.potkategorije; track p.naziv) {
+                        <li>
+                            <span class="potkategorija-naziv">{{ p.naziv }}</span>
+                            <span class="broj">{{ tekstProizvoda(p.brojProizvoda) }}</span>
+                            <span class="akcije">
+                                @if (brisanjePotkategorije == kljuc(k, p)) {
+                                    <button class="btn btn-opasno btn-mali" (click)="obrisiPotkategoriju(k, p)">Potvrdi</button>
+                                    <button class="btn btn-secondary btn-mali" (click)="otkaziBrisanje()">Otkaži</button>
+                                } @else if (p.brojProizvoda > 0) {
+                                    <span class="sitno">u upotrebi</span>
+                                } @else {
+                                    <button class="btn btn-opasno btn-mali" (click)="zapocniBrisanjePotkategorije(k, p)">Obriši</button>
+                                }
+                            </span>
+                        </li>
+                    } @empty {
+                        <li class="sitno">Ova kategorija još nema potkategorija.</li>
+                    }
+                </ul>
+
+                <div class="nova-potkategorija">
+                    <input type="text" [(ngModel)]="noviUnosi[k.naziv]" placeholder="nova potkategorija"
+                           (keyup.enter)="dodajPotkategoriju(k)" />
+                    <button class="btn btn-secondary btn-mali" (click)="dodajPotkategoriju(k)">Dodaj potkategoriju</button>
+                </div>
+            </div>
+        } @empty {
+            <p class="poruka">Nema kategorija u sistemu.</p>
+        }
+    </div>
+} @else {
+    <div class="card">
+        <p class="poruka poruka-greska">Niste prijavljeni.</p>
+        <a routerLink="/login">Prijavite se</a>
+    </div>
+}

@@ -1,0 +1,44 @@
+.korpa-grupa {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.korpa-grupa:last-of-type {
+    border-bottom: none;
+}
+
+.korpa-ukupno {
+    text-align: right;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--primary, #3498db);
+}
+
+.btn-mali {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+/* ==== N-2: tekst za štampu u prikazu korpe ==== */
+.tekst-stavke {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: #6b7280;
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+}

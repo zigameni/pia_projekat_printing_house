@@ -1,0 +1,122 @@
+.zaglavlje-sekcije {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.zaglavlje-sekcije h2 {
+    margin: 0;
+}
+
+.podnaslov {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.filteri {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.filteri > div {
+    flex: 1 1 220px;
+}
+
+.filteri-dugme {
+    flex: 0 0 auto;
+}
+
+.tabela-okvir {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.tabela-okvir table {
+    min-width: 1050px;
+}
+
+.sifra-celija {
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.sitno {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+/* Polja u redu za izmenu su uža od globalnih (tabela ne sme da „pukne") */
+.red-izmena input,
+.red-izmena select {
+    min-width: 140px;
+    padding: 6px 8px;
+    font-size: 0.85rem;
+}
+
+.red-izmena label {
+    margin: 6px 0 2px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #6b7280;
+}
+
+.red-izmena {
+    background: #f8fafc;
+}
+
+.akcije {
+    white-space: nowrap;
+}
+
+.akcije .btn-mali + .btn-mali,
+.akcije .btn-mali + .sitno {
+    margin-left: 6px;
+}
+
+.btn-mali {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+.btn-opasno {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.btn-opasno:hover {
+    background: #b02a37;
+    border-color: #b02a37;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Iste boje kao u profil.css, dopunjene statusom „na_cekanju" */
+.status-aktivan {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-neaktivan {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+.status-na_cekanju {
+    background: #fff3cd;
+    color: #856404;
+}

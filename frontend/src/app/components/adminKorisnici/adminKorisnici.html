@@ -1,0 +1,170 @@
+@if (korisnik) {
+    <div class="card">
+        <div class="zaglavlje-sekcije">
+            <h2>👥 Korisnički nalozi</h2>
+            <span class="sitno">{{ korisnici.length }} naloga u sistemu</span>
+        </div>
+        <p class="podnaslov">
+            Pregled, izmena i brisanje naloga. <strong>Korisničko ime se ne menja</strong> — ono identifikuje nalog.
+            Brisanjem naloga odlaze i njegovi privatni podaci (korpa, zahtevi za lozinku, kod štampara i njegovi proizvodi),
+            a fakture, nabavke, ponude i komentari ostaju kao istorija.
+        </p>
+
+        @if (poruka) {
+            <div class="poruka poruka-uspeh">{{ poruka }}</div>
+        }
+        @if (greska) {
+            <div class="poruka poruka-greska">{{ greska }}</div>
+        }
+
+        <div class="filteri">
+            <div>
+                <label>Pretraga (ime, korisničko ime, i-mejl)</label>
+                <input type="text" [(ngModel)]="filter" placeholder="npr. marko" />
+            </div>
+            <div>
+                <label>Tip naloga</label>
+                <select [(ngModel)]="filterTip">
+                    <option value="">-- svi --</option>
+                    <option value="klijent">klijenti</option>
+                    <option value="stampar">štamparije</option>
+                    <option value="admin">administratori</option>
+                </select>
+            </div>
+            <div class="filteri-dugme">
+                <button class="btn btn-secondary btn-mali" (click)="filter = ''; filterTip = ''">Očisti filtere</button>
+            </div>
+        </div>
+
+        <div class="tabela-okvir">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Korisničko ime</th>
+                        <th>Ime i prezime</th>
+                        <th>Tip naloga</th>
+                        <th>Kontakt</th>
+                        <th>Grad</th>
+                        <th>Status</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (k of filtrirani(); track k.korisnickoIme) {
+                        @if (forma && forma.korisnickoIme == k.korisnickoIme) {
+                            <!-- ==== Red u režimu izmene ==== -->
+                            @if (forma; as f) {
+                                <tr class="red-izmena">
+                                    <td class="sifra-celija">
+                                        {{ k.korisnickoIme }}
+                                        <div class="sitno">nepromenljivo</div>
+                                    </td>
+                                    <td>
+                                        <label>Ime</label>
+                                        <input type="text" [(ngModel)]="f.ime" />
+                                        <label>Prezime</label>
+                                        <input type="text" [(ngModel)]="f.prezime" />
+                                    </td>
+                                    <td>
+                                        <label>Tip naloga</label>
+                                        <select [(ngModel)]="f.tip">
+                                            @for (t of tipovi; track t) {
+                                                <option [value]="t">{{ t }}</option>
+                                            }
+                                        </select>
+                                        @if (f.tip == 'klijent') {
+                                            <label>Vrsta klijenta</label>
+                                            <select [(ngModel)]="f.vrsta">
+                                                @for (v of vrste; track v) {
+                                                    <option [value]="v">{{ v }}</option>
+                                                }
+                                            </select>
+                                        }
+                                        <label>Status</label>
+                                        <select [(ngModel)]="f.status">
+                                            @for (s of statusi; track s) {
+                                                <option [value]="s">{{ s }}</option>
+                                            }
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <label>I-mejl</label>
+                                        <input type="text" [(ngModel)]="f.email" />
+                                        <label>Telefon</label>
+                                        <input type="text" [(ngModel)]="f.telefon" />
+                                    </td>
+                                    <td>
+                                        @if (f.vrsta == 'pravno' || f.tip == 'stampar') {
+                                            <label>Grad</label>
+                                            <input type="text" [(ngModel)]="f.grad" />
+                                        } @else {
+                                            <span class="sitno">—</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (f.vrsta == 'pravno' || f.tip == 'stampar') {
+                                            <label>Naziv institucije</label>
+                                            <input type="text" [(ngModel)]="f.nazivInstitucije" />
+                                            <label>Adresa sedišta</label>
+                                            <input type="text" [(ngModel)]="f.adresa" />
+                                            <label>Matični broj</label>
+                                            <input type="text" [(ngModel)]="f.maticniBroj" />
+                                            <label>PIB</label>
+                                            <input type="text" [(ngModel)]="f.pib" />
+                                        } @else {
+                                            <span class="sitno">—</span>
+                                        }
+                                    </td>
+                                    <td class="akcije">
+                                        <button class="btn btn-mali" (click)="sacuvajIzmenu()">Sačuvaj</button>
+                                        <button class="btn btn-secondary btn-mali" (click)="otkaziIzmenu()">Otkaži</button>
+                                    </td>
+                                </tr>
+                            }
+                        } @else {
+                            <tr>
+                                <td class="sifra-celija">{{ k.korisnickoIme }}</td>
+                                <td>{{ k.ime }} {{ k.prezime }}</td>
+                                <td>
+                                    {{ tipTekst(k) }}
+                                    @if (k.nazivInstitucije) {
+                                        <div class="sitno">{{ k.nazivInstitucije }}</div>
+                                    }
+                                </td>
+                                <td>
+                                    <div>{{ k.email }}</div>
+                                    <div class="sitno">{{ k.telefon }}</div>
+                                </td>
+                                <td>{{ k.grad || '—' }}</td>
+                                <td>
+                                    <span [class]="statusKlasa(k.status)">{{ k.status }}</span>
+                                </td>
+                                <td class="akcije">
+                                    <button class="btn btn-secondary btn-mali" (click)="zapocniIzmenu(k)">Izmeni</button>
+
+                                    @if (jeSopstveniNalog(k)) {
+                                        <span class="sitno">sopstveni nalog</span>
+                                    } @else if (brisanjeKorisnickoIme == k.korisnickoIme) {
+                                        <button class="btn btn-opasno btn-mali" (click)="obrisi(k)">Potvrdi brisanje</button>
+                                        <button class="btn btn-secondary btn-mali" (click)="otkaziBrisanje()">Otkaži</button>
+                                    } @else {
+                                        <button class="btn btn-opasno btn-mali" (click)="zapocniBrisanje(k)">Obriši</button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    } @empty {
+                        <tr>
+                            <td colspan="7">Nema naloga koji odgovaraju filteru.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+} @else {
+    <div class="card">
+        <p class="poruka poruka-greska">Niste prijavljeni.</p>
+        <a routerLink="/login">Prijavite se</a>
+    </div>
+}

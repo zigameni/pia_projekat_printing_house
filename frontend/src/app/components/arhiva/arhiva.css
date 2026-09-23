@@ -1,0 +1,22 @@
+.btn-mali {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-isporuceno {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+.status-primljeno {
+    background: #d1ecf1;
+    color: #0c5460;
+}

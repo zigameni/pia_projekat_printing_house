@@ -1,0 +1,85 @@
+@if (korisnik) {
+    <div class="card">
+        <h2>📦 Narudžbine</h2>
+        <p class="podnaslov">
+            Narudžbine poručene od tvoje štamparije. Status se pomera <strong>jedan korak napred</strong>:
+            <strong>naruceno → u stampi → isporuceno</strong>. Status narudžbina pravnih lica menja se kroz javne nabavke,
+            a „primljeno" označava klijent.
+        </p>
+
+        @if (poruka) {
+            <div class="poruka poruka-uspeh">{{ poruka }}</div>
+        }
+        @if (greska) {
+            <div class="poruka poruka-greska">{{ greska }}</div>
+        }
+
+        @if (narudzbine.length === 0) {
+            <p>Još nemate nijednu narudžbinu.</p>
+        } @else {
+            <div class="tabela-okvir">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Faktura</th>
+                            <th>Klijent</th>
+                            <th>Datum</th>
+                            <th>Stavke</th>
+                            <th class="desno">Iznos (RSD)</th>
+                            <th>Status</th>
+                            <th>Akcija</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (n of narudzbine; track n.idFakture) {
+                            <tr>
+                                <td class="sifra-celija">{{ n.idFakture }}</td>
+                                <td>
+                                    {{ n.klijentIme }}
+                                    <div class="sitno">{{ vrstaKlijentaTekst(n.vrstaKlijenta) }}</div>
+                                </td>
+                                <td>{{ datum(n.datumIzdavanja) }}</td>
+                                <td>
+                                    @for (s of n.stavke; track $index) {
+                                        <div class="stavka">
+                                            {{ s.naziv }} ({{ s.kolicina }})
+                                            @if (s.boja) {
+                                                <span class="sitno">{{ s.boja }}</span>
+                                            }
+                                            @if (s.tipStampe) {
+                                                <span class="sitno">{{ s.tipStampe }}</span>
+                                            }
+                                            @if (s.tekst) {
+                                                <div class="tekst-stavke">🖨️ {{ s.tekst }}</div>
+                                            }
+                                        </div>
+                                    }
+                                </td>
+                                <td class="desno">{{ n.ukupanIznos }}</td>
+                                <td>
+                                    <span [class]="statusKlasa(n.status)">{{ n.status }}</span>
+                                </td>
+                                <td>
+                                    @if (sledeciKorak(n); as korak) {
+                                        <button class="btn btn-secondary btn-mali" (click)="promeniStatus(n)">
+                                            {{ korak.tekst }}
+                                        </button>
+                                    } @else if (n.vrstaKlijenta == 'pravno') {
+                                        <span class="napomena">pravno lice — status se menja kroz javne nabavke</span>
+                                    } @else {
+                                        <span class="napomena">nema daljih koraka</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+} @else {
+    <div class="card">
+        <p class="poruka poruka-greska">Niste prijavljeni.</p>
+        <a routerLink="/login">Prijavite se</a>
+    </div>
+}
